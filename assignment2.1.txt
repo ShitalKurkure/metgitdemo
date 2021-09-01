@@ -1,0 +1,83 @@
+
+
+  /*Assembly code*/
+
+.intel_syntax noprefix
+.text
+.global COUNTDIGITS
+
+.type COUNTDIGITS,@function
+
+COUNTDIGITS:
+   mov rax, 1
+     
+   mov rcx,0
+
+1: inc rcx    #rcx=rcx+1
+   mov rdx,10
+   mul rdx   #rax=rax*10
+   cmp rax,rdi
+   jle 1b
+
+   mov rax,rcx
+
+   ret
+
+ .end
+
+	
+
+ /*C code for calling*/
+
+#include<stdio.h>
+ extern int COUNTDIGITS(long);
+  
+   int main(void)
+   {
+    long num;
+    printf("Enter a number:");
+    scanf("%ld",&num);
+
+    printf("Countdigits = %ld\n",COUNTDIGITS(num));
+ }				
+
+
+
+
+
+/*Header file for declaration (.h)file    (SI.h)*/
+
+double GetSimpleInterest(double,double,int);	
+
+/* Function for calculation of SI  (SI.cpp)*/
+
+#include "SI.h"
+double GetSimpleInterest(double principle,double rate,int period)
+{
+  double SI = 0;
+  SI = principle * rate * period/100;
+  return SI;
+}
+	
+ 
+/* Main function for calling function  (SI2.cpp)*/
+
+#include<iostream>
+#include "SI.h"
+using namespace std;
+int main(void)
+{
+ 
+double principle;
+double rate;
+int period;
+ cout<<"Principle :"<<endl;
+ cin>>principle;
+ cout<<"rate: "<<endl;
+ cin>>rate;
+ cout<<"period :"<<endl;
+ cin>>period;
+
+ cout<<"Simple Interest is:"<<GetSimpleInterest(principle,rate,period)<<endl;
+
+}	 	
